@@ -7,6 +7,7 @@ class Emprestimo < ActiveRecord::Base
   validates_presence_of :data_de_emprestimo, :aluno, :livro
   validate :validate_data_no_passado
   validate :validate_data_de_devolucao_anterior_a_data_do_emprestimo
+  validate :validate_livro_nao_disponivel
 
   def status
     if data_de_devolucao

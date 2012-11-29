@@ -2,6 +2,8 @@ class Aluno < ActiveRecord::Base
   attr_accessible :cpf, :nome
   has_many :emprestimos, :dependent => :destroy
 
+  validates_uniqueness_of :cpf
+
   def atrasos?
     if emprestimos.
         where(:data_de_devolucao => nil).

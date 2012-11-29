@@ -21,8 +21,7 @@ test:
 
 production:
   adapter: postgresql
-  encoding: unicode
+  host: localhost
   database: damgdasbi6grhn
-  pool: 5
   username: sylxwsyjjbhrjd
   password: A873qXClcZDjfpoy5BHG9odG_M

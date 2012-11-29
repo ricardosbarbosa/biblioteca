@@ -2,7 +2,14 @@ class EmprestimosController < ApplicationController
   # GET /emprestimos
   # GET /emprestimos.json
   def index
-    @emprestimos = Emprestimo.all
+
+    if params[:livro_id]
+      @emprestimos = Emprestimo.where(:livro_id => params[:livro_id])
+    elsif params[:aluno_id]
+      @emprestimos = Emprestimo.where(:aluno_id => params[:aluno_id])
+    else
+      @emprestimos = Emprestimo.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +31,19 @@ class EmprestimosController < ApplicationController
   # GET /emprestimos/new
   # GET /emprestimos/new.json
   def new
+    @alunos = Aluno.all
+    @livros = Livro.all
     @emprestimo = Emprestimo.new
+    @emprestimo.data_de_emprestimo = Time.now.to_date
+
+    if params[:livro_id]
+      @emprestimo.livro = Livro.find(params[:livro_id])
+    end
+
+    if params[:aluno_id]
+      @emprestimo.aluno = Aluno.find(params[:aluno_id])
+    end
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +60,7 @@ class EmprestimosController < ApplicationController
   # POST /emprestimos.json
   def create
     @emprestimo = Emprestimo.new(params[:emprestimo])
+    @emprestimo.data_de_emprestimo = Time.now.to_date
 
     respond_to do |format|
       if @emprestimo.save

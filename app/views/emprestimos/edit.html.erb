@@ -3,4 +3,39 @@
   <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
                                    :default => "Edit #{model_class.model_name.human}") %></h1>
 </div>
-<%= render :partial => 'form' %>
+<%= form_for @emprestimo, :html => { :class => 'form-horizontal' } do |f| %>
+
+    <div class="control-group">
+      <%= f.label :data_de_devolucao, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.date_select :data_de_devolucao, :class => 'date_select' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :aluno_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= @emprestimo.aluno.nome%>
+
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :livro_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= @emprestimo.livro.titulo%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :data_de_emprestimo, :class => 'control-label' %>
+      <div class="controls">
+        <%= @emprestimo.data_de_emprestimo%>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' if permitted_to? :create, @emprestimo %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  :back, :class => 'btn' %>
+    </div>
+<% end %>

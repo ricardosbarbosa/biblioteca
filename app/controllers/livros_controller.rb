@@ -2,7 +2,21 @@ class LivrosController < ApplicationController
   # GET /livros
   # GET /livros.json
   def index
-    @livros = Livro.all
+
+    where_titulo = ''
+    where_autor = ''
+    if params[:titulo] != nil
+      where_titulo = "UPPER(titulo) like '%" + params[:titulo].upcase + "%'"
+    end
+
+    if params[:autor] != nil
+      where_autor += "UPPER(autor) like '%" + params[:autor].upcase + "%'"
+    end
+
+    @livros = Livro.where(where_titulo).where(where_autor)
+
+
+
 
     respond_to do |format|
       format.html # index.html.erb

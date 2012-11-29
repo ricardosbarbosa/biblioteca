@@ -2,13 +2,14 @@
   <div class="control-group">
     <%= f.label :aluno_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :aluno_id, :class => 'number_field' %>
+      <%= f.select :aluno_id, @alunos.map {|a| [a.nome,a.id] }%>
+
     </div>
   </div>
   <div class="control-group">
     <%= f.label :livro_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :livro_id, :class => 'number_field' %>
+      <%= f.select :livro_id, @livros.map {|l| [l.titulo,l.id] }%>
     </div>
   </div>
   <div class="control-group">

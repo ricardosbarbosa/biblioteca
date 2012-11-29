@@ -1,8 +1,16 @@
+# encoding: utf-8
 <%- model_class = Emprestimo -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
-<table class="table table-striped">
+Legenda:
+<span style="background-color: #fcf8e3; padding: 2px 4px;">Alugado</span>
+<span style="background-color: #dff0d8; padding: 2px 4px;">Entregue</span>
+<span style="background-color: #d9edf7; padding: 2px 4px;">Entregue Com Atraso</span>
+<span style="background-color: #f2dede; padding: 2px 4px;">Atrasado</span>
+
+<br /><br />
+<table class="table ">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
@@ -10,27 +18,37 @@
       <th><%= model_class.human_attribute_name(:livro_id) %></th>
       <th><%= model_class.human_attribute_name(:data_de_emprestimo) %></th>
       <th><%= model_class.human_attribute_name(:data_de_devolucao) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @emprestimos.each do |emprestimo| %>
-      <tr>
+        <% if emprestimo.status.eql? 'ALUGADO' %>
+          <tr style="background-color: #fcf8e3;">
+      <% elsif emprestimo.status.eql? 'ENTREGUE' %>
+          <tr style="background-color: #dff0d8;">
+      <% elsif emprestimo.status.eql? 'ENTREGUE COM ATRASO' %>
+          <tr style="background-color: #d9edf7;">
+        <% else %>
+          <tr style="background-color: #f2dede;"/>
+        <% end %>
         <td><%= link_to emprestimo.id, emprestimo_path(emprestimo) %></td>
-        <td><%= emprestimo.aluno_id %></td>
-        <td><%= emprestimo.livro_id %></td>
+        <td><%= emprestimo.aluno.nome %></td>
+        <td><%= emprestimo.livro.titulo %></td>
         <td><%= emprestimo.data_de_emprestimo %></td>
-        <td><%= emprestimo.data_de_devolucao %></td>
-        <td><%=l emprestimo.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_emprestimo_path(emprestimo), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+      <td><%= emprestimo.data_de_devolucao %></td>
+      <td><%= emprestimo.status %></td>
+
+      <td style="text-align: right;">
+          <%= link_to 'Devolução',
+                      edit_emprestimo_path(emprestimo), :class => 'btn btn-warning btn-mini' if permitted_to? :edit, emprestimo and !emprestimo.data_de_devolucao  %>
+
+          <%= link_to "Deletar",
                       emprestimo_path(emprestimo),
                       :method => :delete,
                       :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
+                      :class => 'btn btn-mini btn-danger' if permitted_to? :destroy, emprestimo  %>
         </td>
       </tr>
     <% end %>
@@ -39,4 +57,4 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_emprestimo_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary'  if permitted_to? :new, Emprestimo.new %>

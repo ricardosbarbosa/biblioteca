@@ -1,9 +1,13 @@
 Biblioteca::Application.routes.draw do
   resources :emprestimos
 
-  resources :alunos
+  resources :alunos  do
+    resources :emprestimos
+  end
 
-  resources :livros
+  resources :livros   do
+    resources :emprestimos
+  end
 
   devise_for :users
 
@@ -58,7 +62,7 @@ Biblioteca::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
+  root :to => 'livros#index'
 
   # See how all your routes lay out with "rake routes"
 

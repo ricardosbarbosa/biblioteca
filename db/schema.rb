@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129013216) do
+ActiveRecord::Schema.define(:version => 20121129200106) do
 
   create_table "alunos", :force => true do |t|
     t.string   "nome"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(:version => 20121129013216) do
   end
 
   add_index "alunos", ["cpf"], :name => "index_alunos_on_cpf", :unique => true
+
+  create_table "assignments", :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
 
   create_table "emprestimos", :force => true do |t|
     t.integer  "aluno_id"
@@ -42,6 +47,12 @@ ActiveRecord::Schema.define(:version => 20121129013216) do
   end
 
   add_index "livros", ["titulo"], :name => "index_livros_on_titulo", :unique => true
+
+  create_table "roles", :force => true do |t|
+    t.string   "nome"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

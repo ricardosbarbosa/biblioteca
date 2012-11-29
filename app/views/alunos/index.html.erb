@@ -2,31 +2,45 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
-<table class="table table-striped">
+
+Legenda:
+<span style="background-color: #dff0d8; padding: 2px 4px;">Não Possui Atrasos</span>
+<span style="background-color: #f2dede; padding: 2px 4px;">Possui Atrasos</span>
+
+<br /><br />
+<table class="table ">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nome) %></th>
       <th><%= model_class.human_attribute_name(:cpf) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:atrasos) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @alunos.each do |aluno| %>
-      <tr>
+      <% if aluno.atrasos? %>
+          <tr style="background-color: #f2dede;">
+      <% else %>
+          <tr style="background-color: #dff0d8;">
+      <% end %>
         <td><%= link_to aluno.id, aluno_path(aluno) %></td>
         <td><%= aluno.nome %></td>
         <td><%= aluno.cpf %></td>
-        <td><%=l aluno.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_aluno_path(aluno), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        <td><%= aluno.atrasos? %></td>
+      <td style="text-align: right;">
+          <%= link_to "Empréstimos Realizados",
+                      aluno_emprestimos_path(aluno), :class => 'btn btn-success btn-mini' if permitted_to? :index %>
+          <%= link_to "Novo Empréstimo",
+                      new_aluno_emprestimo_path(aluno), :class => 'btn btn-info btn-mini' if permitted_to? :new, Emprestimo.new %>
+          <%= link_to "Editar",
+                      edit_aluno_path(aluno), :class => 'btn btn-mini' if permitted_to? :edit, aluno  %>
+          <%= link_to "Deletar",
                       aluno_path(aluno),
                       :method => :delete,
                       :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
+                      :class => 'btn btn-mini btn-danger'  if permitted_to? :destroy, aluno %>
         </td>
       </tr>
     <% end %>
@@ -35,4 +49,4 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_aluno_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary'  if permitted_to? :new, Aluno.new %>

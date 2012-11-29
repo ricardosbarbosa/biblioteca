@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129203616) do
+ActiveRecord::Schema.define(:version => 20121129203523) do
 
   create_table "alunos", :force => true do |t|
     t.string   "nome"

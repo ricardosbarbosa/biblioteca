@@ -5,5 +5,4 @@ class Role < ActiveRecord::Base
   has_many :user, :through => :assignments
 
   validates_uniqueness_of :nome
-
 end

@@ -33,4 +33,10 @@ class Emprestimo < ActiveRecord::Base
       errors.add(:data_de_emprestimo, "A data de devolução não pode ser anterior a data de emprestimo.") if data_de_devolucao < data_de_emprestimo
     end
   end
+
+  def validate_livro_nao_disponivel
+    if livro
+      errors.add(:livro, "O livro não encontra-se disponível para empréstimo") if !livro.disponivel?
+    end
+  end
 end

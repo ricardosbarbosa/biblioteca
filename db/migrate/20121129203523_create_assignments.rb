@@ -1,4 +1,4 @@
-class CreateAssignmentTable < ActiveRecord::Migration
+class CreateAssignments < ActiveRecord::Migration
   def up
     create_table :assignments do |t|
       t.integer :user_id

@@ -22,7 +22,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: biblioteca_production
+  database: damgdasbi6grhn
   pool: 5
-  username: postgres
-  password: postgres
+  username: sylxwsyjjbhrjd
+  password: A873qXClcZDjfpoy5BHG9odG_M

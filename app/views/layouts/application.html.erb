@@ -48,7 +48,7 @@
           <a class="brand" href="#">Biblioteca</a>
           <div class="container nav-collapse">
             <%  if user_signed_in? %>
-                <ul>
+                <ul class="nav pull-right">
                   <li class="active"><%= link_to "Logout", destroy_user_session_path, :method => :delete %> </li>
 
                 </ul>

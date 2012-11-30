@@ -21,7 +21,7 @@ Legenda:
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
       <th><%= model_class.human_attribute_name(:autor) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th style="text-align: right;">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -36,10 +36,11 @@ Legenda:
         <td><%= livro.autor %></td>
 
         <td style="text-align: right;">
-          <%= link_to "Empréstimos Realizados",
-                      livro_emprestimos_path(livro), :class => 'btn btn-success btn-mini' if permitted_to? :index, Emprestimo.all %>
           <%= link_to "Novo Empréstimo",
                       new_livro_emprestimo_path(livro), :class => 'btn btn-info btn-mini' if livro.disponivel? and permitted_to? :new, Livro.new %>
+          <%= link_to "Empréstimos Realizados",
+                      livro_emprestimos_path(livro), :class => 'btn btn-success btn-mini' if permitted_to? :index %>
+
           <%= link_to "Editar",
                       edit_livro_path(livro), :class => 'btn btn-mini' if permitted_to? :edit, livro%>
           <%= link_to "Deletar",

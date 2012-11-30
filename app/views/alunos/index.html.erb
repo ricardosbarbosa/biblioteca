@@ -14,8 +14,7 @@ Legenda:
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nome) %></th>
       <th><%= model_class.human_attribute_name(:cpf) %></th>
-      <th><%= model_class.human_attribute_name(:atrasos) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th style="text-align: right;">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -28,7 +27,6 @@ Legenda:
         <td><%= link_to aluno.id, aluno_path(aluno) %></td>
         <td><%= aluno.nome %></td>
         <td><%= aluno.cpf %></td>
-        <td><%= aluno.atrasos? %></td>
       <td style="text-align: right;">
           <%= link_to "Empréstimos Realizados",
                       aluno_emprestimos_path(aluno), :class => 'btn btn-success btn-mini' if permitted_to? :index %>

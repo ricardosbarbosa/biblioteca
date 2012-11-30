@@ -18,8 +18,9 @@ Legenda:
       <th><%= model_class.human_attribute_name(:livro_id) %></th>
       <th><%= model_class.human_attribute_name(:data_de_emprestimo) %></th>
       <th><%= model_class.human_attribute_name(:data_de_devolucao) %></th>
+      <th><%= model_class.human_attribute_name(:devolvido_em) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th style="text-align: right;">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -38,6 +39,7 @@ Legenda:
         <td><%= emprestimo.livro.titulo %></td>
         <td><%= emprestimo.data_de_emprestimo %></td>
       <td><%= emprestimo.data_de_devolucao %></td>
+      <td><%= emprestimo.devolvido_em %></td>
       <td><%= emprestimo.status %></td>
 
       <td style="text-align: right;">

@@ -7,3 +7,7 @@ livro1:
 livro2:
   titulo: Livro dois
   autor: Antonio
+
+livro3:
+  titulo: Livro tres
+  autor: Antonio

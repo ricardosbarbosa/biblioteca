@@ -6,7 +6,7 @@ class Livro < ActiveRecord::Base
   validates_uniqueness_of :titulo
 
   def disponivel?
-     if emprestimos.where(:data_de_devolucao => nil).count > 0
+     if emprestimos.where(:devolvido_em => nil).count > 0
        false
      else
        true

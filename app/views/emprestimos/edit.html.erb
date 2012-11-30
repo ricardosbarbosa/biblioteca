@@ -6,9 +6,9 @@
 <%= form_for @emprestimo, :html => { :class => 'form-horizontal' } do |f| %>
 
     <div class="control-group">
-      <%= f.label :data_de_devolucao, :class => 'control-label' %>
+      <%= f.label :devolvido_em, :class => 'control-label' %>
       <div class="controls">
-        <%= f.date_select :data_de_devolucao, :class => 'date_select' %>
+        <%= f.date_select :devolvido_em, :class => 'date_select' %>
       </div>
     </div>
 
@@ -29,6 +29,12 @@
       <%= f.label :data_de_emprestimo, :class => 'control-label' %>
       <div class="controls">
         <%= @emprestimo.data_de_emprestimo%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :data_de_devolucao, :class => 'control-label' %>
+      <div class="controls">
+        <%= @emprestimo.data_de_devolucao%>
       </div>
     </div>
 

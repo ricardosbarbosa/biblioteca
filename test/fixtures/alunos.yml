@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  nome: MyString
-  cpf: MyString
+aluno1:
+  nome: Aluno Um
+  cpf: 03000000000
 
-two:
-  nome: MyString
-  cpf: MyString
+aluno2:
+  nome: Aluno Dois
+  cpf: 02000000000

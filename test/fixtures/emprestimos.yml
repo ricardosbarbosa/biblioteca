@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  aluno: 
-  livro: 
+emprestimo1:
+  aluno: aluno1
+  livro: livro1
   data_de_emprestimo: 2012-11-28
   data_de_devolucao: 2012-11-28
 
-two:
-  aluno: 
-  livro: 
+emprestimo2:
+  aluno: aluno2
+  livro: livro2
   data_de_emprestimo: 2012-11-28
   data_de_devolucao: 2012-11-28

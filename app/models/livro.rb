@@ -2,6 +2,7 @@ class Livro < ActiveRecord::Base
   attr_accessible :autor, :titulo
   has_many :emprestimos, :dependent => :destroy
 
+  validates_presence_of :titulo, :autor
   validates_uniqueness_of :titulo
 
   def disponivel?

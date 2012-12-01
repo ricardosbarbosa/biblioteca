@@ -8,39 +8,20 @@ class EmprestimoTest < ActiveSupport::TestCase
     @emp = emprestimos(:emprestimo1)
     @emp.data_de_emprestimo = 1.day.from_now
     @emp.data_de_devolucao = 6.day.from_now
+    @emp.livro = livros(:livro_sempre_disponivel)
   end
 
   def teardown
     @emp = nil
   end
 
-  test "tentando salvar um emprestimo para um livro nao disponivel" do
-    @emp = emprestimos(:emprestimo2)
-    @emp.data_de_emprestimo = 0.day.from_now
-    @emp.data_de_devolucao = @emp.data_de_emprestimo + 1.day
-    @emp.livro = livros(:livro3)
-    assert @emp.valid?
-    @emp.save
-
-    emprestimo2 = Emprestimo.new
-    emprestimo2.data_de_emprestimo = 0.day.from_now
-    emprestimo2.data_de_devolucao = emprestimo2.data_de_emprestimo + 1.day
-    emprestimo2.aluno = @emp.aluno
-    emprestimo2.livro = livros(:livro2)
-    assert emprestimo2.valid?
-    emprestimo2.livro = @emp.livro
-    assert emprestimo2.invalid?
-
-    @emp.delete
-    assert emprestimo2.valid?
-  end
 
   test "devolvido em anterior a data de emprestimo" do
-    @emp.data_de_emprestimo = 0.day.from_now
+    @emp.data_de_emprestimo = Date.today
 
     @emp.devolvido_em = @emp.data_de_emprestimo - 1.day
     assert @emp.invalid?
-    assert @emp.errors[:devolvido_em].any?
+    assert @emp.errors[:devolvido_em].any?,@emp.errors.to_a.join
     @emp.devolvido_em = @emp.data_de_emprestimo - 1.month
     assert @emp.invalid?
     assert @emp.errors[:devolvido_em].any?
@@ -48,8 +29,12 @@ class EmprestimoTest < ActiveSupport::TestCase
     assert @emp.invalid?
     assert @emp.errors[:devolvido_em].any?
 
+    @emp.data_de_emprestimo = Date.today
     @emp.devolvido_em = @emp.data_de_emprestimo + 1.day
-    assert @emp.errors[:devolvido_em].none?
+    @emp.devolvido_em = @emp.devolvido_em.to_date
+    @emp.data_de_emprestimo = @emp.data_de_emprestimo.to_date
+    @emp.data_de_devolucao = @emp.data_de_devolucao.to_date
+    assert @emp.errors[:devolvido_em].none?, @emp.errors[:devolvido_em].join
     @emp.devolvido_em = @emp.data_de_emprestimo + 1.month
     assert @emp.errors[:devolvido_em].none?
     @emp.devolvido_em = @emp.data_de_emprestimo + 1.day
@@ -114,42 +99,7 @@ class EmprestimoTest < ActiveSupport::TestCase
 
   end
 
-  test "data de emprestimo no passado" do
 
-    @emp.data_de_emprestimo = 0.day.from_now
-    @emp.data_de_devolucao = 6.day.from_now
-    assert @emp.errors[:data_de_emprestimo].none?
-
-    @emp.data_de_emprestimo = 0.day.from_now
-    assert @emp.errors[:data_de_emprestimo].none?
-
-
-    @emp.data_de_emprestimo = 1.day.ago
-    @emp.data_de_devolucao = @emp.data_de_emprestimo + 1.day
-    assert @emp.invalid?
-    assert @emp.errors[:data_de_emprestimo].any?
-    @emp.data_de_emprestimo = 1.month.ago
-    @emp.data_de_devolucao = @emp.data_de_emprestimo + 1.day
-    assert @emp.invalid?
-    assert @emp.errors[:data_de_emprestimo].any?
-    @emp.data_de_emprestimo = 1.year.ago
-    @emp.data_de_devolucao = @emp.data_de_emprestimo + 1.day
-    assert @emp.invalid?
-    assert @emp.errors[:data_de_emprestimo].any?
-
-    @emp.data_de_emprestimo = 1.day.from_now.to_date
-    @emp.data_de_devolucao = @emp.data_de_emprestimo + 2.day
-    assert @emp.errors[:data_de_emprestimo].none?
-    @emp.data_de_emprestimo = 30.day.from_now.to_date
-    @emp.data_de_devolucao= @emp.data_de_emprestimo + 1.day
-    assert @emp.errors[:data_de_emprestimo].none?
-    @emp.data_de_emprestimo = 360.year.from_now.to_date
-    @emp.data_de_devolucao= @emp.data_de_emprestimo + 1.day
-    assert @emp.errors[:data_de_emprestimo].none?
-
-    assert @emp.errors[:data_de_emprestimo].none?
-
-  end
 
   test "data de emprestimo nao pode ser nulo" do
 

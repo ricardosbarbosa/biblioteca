@@ -1,5 +1,17 @@
 <%= form_for @aluno, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
+    <% if @aluno.errors.any? %>
+        <div id="error_explanation" class="alert alert-error">
+          <h2><%= pluralize(@aluno.errors.count, "erro") %>:</h2>
+
+          <ul>
+            <% @aluno.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="control-group">
     <%= f.label :nome, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :nome, :class => 'text_field' %>

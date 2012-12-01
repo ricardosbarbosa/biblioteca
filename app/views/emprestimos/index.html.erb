@@ -10,6 +10,10 @@ Legenda:
 <span style="background-color: #f2dede; padding: 2px 4px;">Atrasado</span>
 
 <br /><br />
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_emprestimo_path,
+            :class => 'btn btn-primary'  if permitted_to? :new, Emprestimo.new %>
+
 <table class="table ">
   <thead>
     <tr>
@@ -44,7 +48,8 @@ Legenda:
 
       <td style="text-align: right;">
           <%= link_to 'Devolução',
-                      edit_emprestimo_path(emprestimo), :class => 'btn btn-warning btn-mini' if permitted_to? :edit, emprestimo and !emprestimo.data_de_devolucao  %>
+                      edit_emprestimo_path(emprestimo),
+                      :class => 'btn btn-warning btn-mini' if permitted_to? :edit, emprestimo and !emprestimo.devolvido_em  %>
 
           <%= link_to "Deletar",
                       emprestimo_path(emprestimo),

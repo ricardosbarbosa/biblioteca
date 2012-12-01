@@ -11,3 +11,7 @@ livro2:
 livro3:
   titulo: Livro tres
   autor: Antonio
+
+livro_sempre_disponivel:
+  titulo: Livro disponivel
+  autor: Joao

@@ -8,6 +8,11 @@ Legenda:
 <span style="background-color: #f2dede; padding: 2px 4px;">Possui Atrasos</span>
 
 <br /><br />
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_aluno_path,
+            :class => 'btn btn-primary'  if permitted_to? :new, Aluno.new %>
+
+
 <table class="table ">
   <thead>
     <tr>

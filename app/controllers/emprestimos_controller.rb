@@ -59,11 +59,13 @@ class EmprestimosController < ApplicationController
   # POST /emprestimos
   # POST /emprestimos.json
   def create
+    @alunos = Aluno.all
+    @livros = Livro.all
     @emprestimo = Emprestimo.new(params[:emprestimo])
     @emprestimo.data_de_emprestimo = Time.now.to_date
 
     respond_to do |format|
-      if @emprestimo.save
+      if @emprestimo.valid? and @emprestimo.save
         format.html { redirect_to @emprestimo, notice: 'Emprestimo was successfully created.' }
         format.json { render json: @emprestimo, status: :created, location: @emprestimo }
       else

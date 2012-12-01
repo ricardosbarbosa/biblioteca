@@ -2,6 +2,7 @@ class Aluno < ActiveRecord::Base
   attr_accessible :cpf, :nome
   has_many :emprestimos, :dependent => :destroy
 
+  validates_presence_of :nome, :cpf
   validates_uniqueness_of :cpf
 
   def atrasos?

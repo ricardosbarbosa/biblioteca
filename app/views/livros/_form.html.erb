@@ -1,5 +1,18 @@
 <%= form_for @livro, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
+    <% if @livro.errors.any? %>
+        <div id="error_explanation" class="alert alert-error">
+          <h2><%= pluralize(@livro.errors.count, "erro") %>:</h2>
+
+          <ul>
+            <% @livro.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="control-group">
     <%= f.label :titulo, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :titulo, :class => 'text_field' %>

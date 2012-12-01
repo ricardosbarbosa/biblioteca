@@ -5,20 +5,22 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:aluno_id) %>:</strong></dt>
-  <dd><%= @emprestimo.aluno_id %></dd>
+  <dd><%= @emprestimo.aluno.nome %></dd>
   <dt><strong><%= model_class.human_attribute_name(:livro_id) %>:</strong></dt>
-  <dd><%= @emprestimo.livro_id %></dd>
+  <dd><%= @emprestimo.livro.titulo %></dd>
   <dt><strong><%= model_class.human_attribute_name(:data_de_emprestimo) %>:</strong></dt>
   <dd><%= @emprestimo.data_de_emprestimo %></dd>
   <dt><strong><%= model_class.human_attribute_name(:data_de_devolucao) %>:</strong></dt>
   <dd><%= @emprestimo.data_de_devolucao %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:devolvido_em) %>:</strong></dt>
+  <dd><%= @emprestimo.devolvido_em %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               emprestimos_path, :class => 'btn'  %>
-  <%= link_to "Editar",
-              edit_emprestimo_path(@emprestimo), :class => 'btn' if permitted_to? :edit, @emprestimo%>
+  <%= link_to "Devolução",
+              edit_emprestimo_path(@emprestimo), :class => 'btn btn-warning' if permitted_to? :edit, @emprestimo && @emprestimo.devolvido_em%>
   <%= link_to "Deletar",
               emprestimo_path(@emprestimo),
               :method => 'delete',
